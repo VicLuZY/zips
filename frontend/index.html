@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurant Map</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="toolbar">
+      <h1>Restaurants</h1>
+      <button id="noTipsToggle" class="chip active" type="button" aria-pressed="true">
+        No tips only
+      </button>
+    </header>
+
+    <main class="layout">
+      <section id="map" aria-label="Restaurant map"></section>
+      <aside class="side-panel" aria-label="Restaurant list">
+        <h2>Visible restaurants</h2>
+        <ul id="restaurantList" class="restaurant-list"></ul>
+      </aside>
+    </main>
+
+    <section id="detailCard" class="detail-card hidden" aria-live="polite"></section>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
