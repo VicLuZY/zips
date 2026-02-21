@@ -1,0 +1,14 @@
+{
+  "name": "zips",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "bash -lc 'npm run dev --workspace backend & npm run dev --workspace frontend & wait'",
+    "build": "npm run build --workspace backend && npm run build --workspace frontend",
+    "lint": "npm run lint --workspace backend && npm run lint --workspace frontend"
+  }
+}
