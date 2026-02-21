@@ -1,0 +1,11 @@
+{
+  "name": "zips",
+  "version": "1.0.0",
+  "description": "Restaurant submissions with community verification",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check public/app.js"
+  },
+  "license": "MIT"
+}

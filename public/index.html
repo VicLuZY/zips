@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurant Tips Directory</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Submit a Restaurant</h1>
+      <p class="subhead">Help the community find places that do (or do not) accept tips.</p>
+
+      <form id="submission-form" class="card">
+        <label>
+          Restaurant name
+          <input id="name" name="name" required />
+        </label>
+
+        <label>
+          Restaurant address
+          <input id="address" name="address" required />
+        </label>
+
+        <fieldset>
+          <legend>Map pin placement</legend>
+          <div class="pin-grid">
+            <label>
+              Latitude
+              <input id="lat" name="lat" type="number" step="any" min="-90" max="90" required />
+            </label>
+            <label>
+              Longitude
+              <input id="lng" name="lng" type="number" step="any" min="-180" max="180" required />
+            </label>
+          </div>
+          <div id="map" class="map" aria-label="Pin placement map">
+            <div id="pin" class="pin" hidden title="Map pin"></div>
+            <p class="map-hint">Click to place pin and auto-fill latitude/longitude.</p>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Does this place accept tips? <span class="required">*</span></legend>
+          <label><input type="radio" name="acceptsTips" value="yes" required /> Yes</label>
+          <label><input type="radio" name="acceptsTips" value="no" required /> No</label>
+        </fieldset>
+
+        <button type="submit">Submit</button>
+        <p id="status-message" role="status"></p>
+      </form>
+
+      <section>
+        <h2>Community submissions</h2>
+        <ul id="restaurants" class="list"></ul>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,115 @@
+:root {
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f8f9fc;
+  color: #182231;
+}
+
+.container {
+  max-width: 760px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #d6deeb;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.subhead {
+  color: #4d5f77;
+}
+
+label,
+fieldset {
+  display: block;
+  margin-bottom: 0.85rem;
+}
+
+input {
+  margin-top: 0.35rem;
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #b7c4d8;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.pin-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.map {
+  margin-top: 0.75rem;
+  height: 180px;
+  border: 1px dashed #9fb1cc;
+  border-radius: 10px;
+  position: relative;
+  background: linear-gradient(145deg, #eff4fc, #dce8fa);
+  cursor: crosshair;
+}
+
+.map-hint {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  margin: 0;
+  font-size: 0.85rem;
+  color: #415775;
+}
+
+.pin {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: #e93737;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 4px rgba(233, 55, 55, 0.2);
+}
+
+button {
+  padding: 0.6rem 0.9rem;
+  border-radius: 10px;
+  border: none;
+  background: #0b66ff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.required {
+  color: #da2f2f;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.list-item {
+  background: #fff;
+  border: 1px solid #d6deeb;
+  border-radius: 10px;
+  padding: 0.75rem;
+}
+
+.badge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  background: #fff3cd;
+  color: #805f00;
+  font-size: 0.78rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+}
