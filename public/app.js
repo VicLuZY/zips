@@ -3,8 +3,41 @@ const restaurantList = document.getElementById('restaurants');
 const statusMessage = document.getElementById('status-message');
 const latInput = document.getElementById('lat');
 const lngInput = document.getElementById('lng');
-const mapEl = document.getElementById('map');
+const pickerMapEl = document.getElementById('picker-map');
+const directoryMapEl = document.getElementById('directory-map');
 const pinEl = document.getElementById('pin');
+
+const toXY = (lat, lng, width, height) => {
+  const x = ((lng + 180) / 360) * width;
+  const y = ((90 - lat) / 180) * height;
+  return { x, y };
+};
+
+const renderDirectoryMap = (restaurants) => {
+  directoryMapEl.innerHTML = '';
+
+  if (restaurants.length === 0) {
+    directoryMapEl.innerHTML = '<p class="empty-map">No zero-tip restaurants have been submitted yet.</p>';
+    return;
+  }
+
+  const width = directoryMapEl.clientWidth;
+  const height = directoryMapEl.clientHeight;
+
+  restaurants.forEach((restaurant) => {
+    const marker = document.createElement('button');
+    marker.className = 'marker';
+    marker.type = 'button';
+    marker.title = `${restaurant.name} · ${restaurant.address}`;
+    marker.setAttribute('aria-label', marker.title);
+
+    const { x, y } = toXY(restaurant.lat, restaurant.lng, width, height);
+    marker.style.left = `${x}px`;
+    marker.style.top = `${y}px`;
+
+    directoryMapEl.appendChild(marker);
+  });
+};
 
 const renderRestaurants = (restaurants) => {
   restaurantList.innerHTML = '';
@@ -21,16 +54,17 @@ const renderRestaurants = (restaurants) => {
       <strong>${restaurant.name}</strong>${verificationBadge}
       <div>${restaurant.address}</div>
       <div>Map pin: ${restaurant.lat.toFixed(5)}, ${restaurant.lng.toFixed(5)}</div>
-      <div>Accepts tips: <strong>${restaurant.acceptsTips ? 'Yes' : 'No'}</strong></div>
       <div>Verification status: ${restaurant.verification_status}</div>
     `;
 
     restaurantList.appendChild(item);
   });
+
+  renderDirectoryMap(restaurants);
 };
 
-const loadRestaurants = async () => {
-  const response = await fetch('/api/restaurants');
+const loadZeroTipRestaurants = async () => {
+  const response = await fetch('/api/restaurants?acceptsTips=false');
   const restaurants = await response.json();
   renderRestaurants(restaurants);
 };
@@ -41,8 +75,8 @@ const placePin = (x, y) => {
   pinEl.style.top = `${y}px`;
 };
 
-mapEl.addEventListener('click', (event) => {
-  const rect = mapEl.getBoundingClientRect();
+pickerMapEl.addEventListener('click', (event) => {
+  const rect = pickerMapEl.getBoundingClientRect();
   const x = event.clientX - rect.left;
   const y = event.clientY - rect.top;
   placePin(x, y);
@@ -52,6 +86,10 @@ mapEl.addEventListener('click', (event) => {
 
   latInput.value = lat.toFixed(6);
   lngInput.value = lng.toFixed(6);
+});
+
+window.addEventListener('resize', () => {
+  loadZeroTipRestaurants();
 });
 
 form.addEventListener('submit', async (event) => {
@@ -80,10 +118,13 @@ form.addEventListener('submit', async (event) => {
     return;
   }
 
-  statusMessage.textContent = 'Submission sent for community verification.';
+  statusMessage.textContent = payload.acceptsTips
+    ? 'Submitted. This location accepts tips, so it is not shown in the zero-tip directory.'
+    : 'Submitted to Zips. This zero-tip location is now shown in the directory.';
+
   form.reset();
   pinEl.hidden = true;
-  await loadRestaurants();
+  await loadZeroTipRestaurants();
 });
 
-loadRestaurants();
+loadZeroTipRestaurants();

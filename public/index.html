@@ -3,15 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Restaurant Tips Directory</title>
+    <title>Zips · Zero-Tip Restaurant Map</title>
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
     <main class="container">
-      <h1>Submit a Restaurant</h1>
-      <p class="subhead">Help the community find places that do (or do not) accept tips.</p>
+      <header>
+        <h1>Zips</h1>
+        <p class="subhead">A crowd-sourced map of restaurants that do not accept tips.</p>
+      </header>
+
+      <section class="card map-card">
+        <h2>Zero-tip map</h2>
+        <div id="directory-map" class="directory-map" aria-label="Map of zero-tip restaurants"></div>
+        <p class="map-legend">Each marker represents a community-submitted restaurant where tipping is not accepted.</p>
+      </section>
 
       <form id="submission-form" class="card">
+        <h2>Submit a restaurant</h2>
+        <p class="subhead">Only submissions marked as "does not accept tips" appear on the map.</p>
+
         <label>
           Restaurant name
           <input id="name" name="name" required />
@@ -23,7 +34,7 @@
         </label>
 
         <fieldset>
-          <legend>Map pin placement</legend>
+          <legend>Pin location</legend>
           <div class="pin-grid">
             <label>
               Latitude
@@ -34,24 +45,24 @@
               <input id="lng" name="lng" type="number" step="any" min="-180" max="180" required />
             </label>
           </div>
-          <div id="map" class="map" aria-label="Pin placement map">
+          <div id="picker-map" class="picker-map" aria-label="Pin placement map">
             <div id="pin" class="pin" hidden title="Map pin"></div>
-            <p class="map-hint">Click to place pin and auto-fill latitude/longitude.</p>
+            <p class="map-hint">Click to place a pin and auto-fill latitude/longitude.</p>
           </div>
         </fieldset>
 
         <fieldset>
           <legend>Does this place accept tips? <span class="required">*</span></legend>
-          <label><input type="radio" name="acceptsTips" value="yes" required /> Yes</label>
-          <label><input type="radio" name="acceptsTips" value="no" required /> No</label>
+          <label><input type="radio" name="acceptsTips" value="no" required /> No, it does not accept tips</label>
+          <label><input type="radio" name="acceptsTips" value="yes" required /> Yes, it accepts tips</label>
         </fieldset>
 
-        <button type="submit">Submit</button>
+        <button type="submit">Submit to Zips</button>
         <p id="status-message" role="status"></p>
       </form>
 
       <section>
-        <h2>Community submissions</h2>
+        <h2>Zero-tip directory</h2>
         <ul id="restaurants" class="list"></ul>
       </section>
     </main>

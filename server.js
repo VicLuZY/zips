@@ -97,7 +97,19 @@ const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
 
   if (req.method === 'GET' && url.pathname === '/api/restaurants') {
-    sendJson(res, 200, restaurants);
+    const acceptsTipsFilter = url.searchParams.get('acceptsTips');
+    if (acceptsTipsFilter === null) {
+      sendJson(res, 200, restaurants);
+      return;
+    }
+
+    if (acceptsTipsFilter !== 'true' && acceptsTipsFilter !== 'false') {
+      sendJson(res, 400, { error: 'acceptsTips query must be true or false.' });
+      return;
+    }
+
+    const filtered = restaurants.filter((restaurant) => restaurant.acceptsTips === (acceptsTipsFilter === 'true'));
+    sendJson(res, 200, filtered);
     return;
   }
 
